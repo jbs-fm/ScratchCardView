@@ -27,4 +27,11 @@
     android:padding="20dp"
     android:text="@string/scratch_image_view_demo"/>
 
+  <Button
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:onClick="onRelativeLayoutDemoClick"
+    android:padding="20dp"
+    android:text="@string/scratch_relative_layout_demo"/>
+
 </LinearLayout>
