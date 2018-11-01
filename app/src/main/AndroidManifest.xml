@@ -1,35 +1,35 @@
 <?xml version="1.0" encoding="utf-8"?>
-<manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.cooltechworks.scratchview.demo">
+<manifest package="com.goibiboutils.scratchcardview.demo"
+          xmlns:android="http://schemas.android.com/apk/res/android">
 
-    <application
-        android:icon="@mipmap/ic_launcher"
-        android:label="@string/app_name"
-        android:supportsRtl="true"
-        android:theme="@style/AppTheme">
-        <activity
-            android:name=".DemoClothingActivity"
-            android:label="@string/clothing_title"
-            android:screenOrientation="portrait"
-            android:theme="@style/AppTheme">
-        </activity>
+  <application
+    android:icon="@mipmap/ic_launcher"
+    android:label="@string/app_name"
+    android:supportsRtl="true"
+    android:theme="@style/AppTheme">
+    <activity
+      android:name="com.goibiboutils.scratchcardview.demo.DemoClothingActivity"
+      android:label="@string/clothing_title"
+      android:screenOrientation="portrait"
+      android:theme="@style/AppTheme">
+    </activity>
 
-        <activity
-            android:name=".CaptchaActivity"
-            android:label="@string/captcha_title"
-            android:screenOrientation="portrait"
-            android:theme="@style/AppTheme">
-        </activity>
-        <activity
-            android:name=".MainActivity"
-            android:label="@string/title_activity_main"
-            android:theme="@style/AppTheme">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
+    <activity
+      android:name="com.goibiboutils.scratchcardview.demo.CaptchaActivity"
+      android:label="@string/captcha_title"
+      android:screenOrientation="portrait"
+      android:theme="@style/AppTheme">
+    </activity>
+    <activity
+      android:name="com.goibiboutils.scratchcardview.demo.MainActivity"
+      android:label="@string/title_activity_main"
+      android:theme="@style/AppTheme">
+      <intent-filter>
+        <action android:name="android.intent.action.MAIN"/>
 
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-        </activity>
-    </application>
+        <category android:name="android.intent.category.LAUNCHER"/>
+      </intent-filter>
+    </activity>
+  </application>
 
 </manifest>

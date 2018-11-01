@@ -1,201 +1,202 @@
 <?xml version="1.0" encoding="utf-8"?>
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+             xmlns:app="http://schemas.android.com/apk/res-auto"
+             android:layout_width="match_parent"
+             android:layout_height="match_parent"
+             android:background="@color/paint_background"
+             android:orientation="vertical">
+
+
+  <LinearLayout
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/paint_background"
     android:orientation="vertical">
 
+    <android.support.v7.widget.CardView
+      android:layout_width="match_parent"
+      android:layout_height="300dp"
+      android:layout_margin="10dp">
 
-    <LinearLayout
+      <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical">
 
-        <android.support.v7.widget.CardView
-            android:layout_width="match_parent"
-            android:layout_height="300dp"
-            android:layout_margin="10dp">
+        <ImageView
+          android:id="@+id/sample_image"
+          android:layout_width="match_parent"
+          android:layout_height="0dp"
+          android:layout_weight="1"
+          android:background="@android:color/white"
+          app:srcCompat="@drawable/img_sample1">
 
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:orientation="vertical">
+        </ImageView>
 
-                <ImageView
-                    android:id="@+id/sample_image"
-                    android:layout_width="match_parent"
-                    android:layout_height="0dp"
-                    android:layout_weight="1"
-                    android:background="@android:color/white"
-                    android:src="@drawable/img_sample1">
+        <LinearLayout
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:orientation="horizontal">
 
-                </ImageView>
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal">
-
-                    <TextView
-                        android:id="@+id/title_text"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:padding="15dp"
-                        android:text="@string/clothing_title"
-                        android:textColor="@android:color/black"
-                        android:textSize="15sp" />
-
-                    <FrameLayout
-                        android:id="@+id/price_container"
-                        android:layout_width="200dp"
-                        android:layout_height="match_parent">
-
-                        <TextView
-                            android:id="@+id/price_before_text"
-                            android:layout_width="match_parent"
-                            android:layout_height="match_parent"
-                            android:gravity="center"
-                            android:padding="10dp"
-                            android:text="@string/price"
-                            android:textSize="15sp"
-                            android:textStyle="bold" />
-
-                        <TextView
-                            android:id="@+id/price_after_text"
-                            android:layout_width="match_parent"
-                            android:layout_height="match_parent"
-                            android:gravity="center"
-                            android:padding="10dp"
-                            android:text="@string/price_strike"
-                            android:textSize="15sp"
-                            android:textStyle="bold"
-                            android:visibility="gone" />
-
-
-                    </FrameLayout>
-
-
-                </LinearLayout>
-            </LinearLayout>
-
-        </android.support.v7.widget.CardView>
-
-
-        <android.support.v7.widget.CardView
-            android:layout_width="match_parent"
+          <TextView
+            android:id="@+id/title_text"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_margin="10dp">
+            android:layout_weight="1"
+            android:padding="15dp"
+            android:text="@string/clothing_title"
+            android:textColor="@android:color/black"
+            android:textSize="15sp"/>
 
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal">
+          <FrameLayout
+            android:id="@+id/price_container"
+            android:layout_width="200dp"
+            android:layout_height="match_parent">
 
-                <TextView
-                    android:id="@+id/scratch_title_text"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:padding="15dp"
-                    android:text="@string/scratch_for_offer"
-                    android:textColor="@android:color/black"
-                    android:textSize="15sp" />
+            <TextView
+              android:id="@+id/price_before_text"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:gravity="center"
+              android:padding="10dp"
+              android:text="@string/price"
+              android:textSize="15sp"
+              android:textStyle="bold"/>
 
-                <com.cooltechworks.views.ScratchTextView
-                    android:id="@+id/scratch_view"
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
-                    android:gravity="center|end"
-                    android:paddingBottom="10dp"
-                    android:paddingLeft="30dp"
-                    android:paddingRight="30dp"
-                    android:paddingTop="10dp"
-                    android:text="@string/flat_200"
-                    android:textSize="15sp"
-                    android:textStyle="bold" />
-            </LinearLayout>
-
-
-        </android.support.v7.widget.CardView>
-
-        <android.support.v7.widget.CardView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_margin="10dp">
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal">
-
-                <TextView
-                    android:id="@+id/select_size_title"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:padding="15dp"
-                    android:text="@string/select_size"
-                    android:textColor="@android:color/black"
-                    android:textSize="15sp" />
-
-                <TextView
-                    android:id="@+id/size_view"
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
-                    android:drawablePadding="5dp"
-                    android:drawableRight="@drawable/ic_chevron_down"
-                    android:gravity="center|end"
-                    android:paddingBottom="10dp"
-                    android:paddingLeft="30dp"
-                    android:paddingRight="30dp"
-                    android:paddingTop="10dp"
-                    android:text="S"
-                    android:textColor="@android:color/black"
-                    android:textSize="16sp"
-                    android:textStyle="bold" />
-            </LinearLayout>
+            <TextView
+              android:id="@+id/price_after_text"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:gravity="center"
+              android:padding="10dp"
+              android:text="@string/price_strike"
+              android:textSize="15sp"
+              android:textStyle="bold"
+              android:visibility="gone"/>
 
 
-        </android.support.v7.widget.CardView>
+          </FrameLayout>
 
-    </LinearLayout>
 
-    <LinearLayout
+        </LinearLayout>
+      </LinearLayout>
+
+    </android.support.v7.widget.CardView>
+
+
+    <android.support.v7.widget.CardView
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:layout_margin="10dp">
+
+      <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_gravity="bottom"
-        android:background="@android:color/white"
         android:orientation="horizontal">
 
         <TextView
-            android:id="@+id/wish_list"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:gravity="center"
-            android:padding="15dp"
-            android:text="@string/wish_list"
-            android:drawableLeft="@drawable/ic_wishlist"
-            android:textColor="@android:color/black"
-            android:textSize="15sp" />
+          android:id="@+id/scratch_title_text"
+          android:layout_width="0dp"
+          android:layout_height="wrap_content"
+          android:layout_weight="1"
+          android:padding="15dp"
+          android:text="@string/scratch_for_offer"
+          android:textColor="@android:color/black"
+          android:textSize="15sp"/>
+
+        <com.goibibo.libs.views.ScratchTextView
+          android:id="@+id/scratch_view"
+          android:layout_width="wrap_content"
+          android:layout_height="match_parent"
+          android:gravity="center|end"
+          android:paddingBottom="10dp"
+          android:paddingLeft="30dp"
+          android:paddingRight="30dp"
+          android:paddingTop="10dp"
+          android:text="@string/flat_200"
+          android:textSize="15sp"
+          android:textStyle="bold"/>
+      </LinearLayout>
+
+
+    </android.support.v7.widget.CardView>
+
+    <android.support.v7.widget.CardView
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:layout_margin="10dp">
+
+      <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
 
         <TextView
-            android:id="@+id/add_to_cart"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:background="@color/cart_bg"
-            android:drawableLeft="@drawable/ic_cart"
-            android:gravity="center"
-            android:paddingBottom="10dp"
-            android:paddingLeft="30dp"
-            android:paddingRight="30dp"
-            android:paddingTop="10dp"
-            android:text="@string/add_to_cart"
-            android:textColor="@android:color/white"
-            android:textSize="15sp"
-            android:textStyle="bold" />
-    </LinearLayout>
+          android:id="@+id/select_size_title"
+          android:layout_width="0dp"
+          android:layout_height="wrap_content"
+          android:layout_weight="1"
+          android:padding="15dp"
+          android:text="@string/select_size"
+          android:textColor="@android:color/black"
+          android:textSize="15sp"/>
+
+        <TextView
+          android:id="@+id/size_view"
+          android:layout_width="wrap_content"
+          android:layout_height="match_parent"
+          android:drawablePadding="5dp"
+          android:drawableRight="@drawable/ic_chevron_down"
+          android:gravity="center|end"
+          android:paddingBottom="10dp"
+          android:paddingLeft="30dp"
+          android:paddingRight="30dp"
+          android:paddingTop="10dp"
+          android:text="S"
+          android:textColor="@android:color/black"
+          android:textSize="16sp"
+          android:textStyle="bold"/>
+      </LinearLayout>
+
+
+    </android.support.v7.widget.CardView>
+
+  </LinearLayout>
+
+  <LinearLayout
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_gravity="bottom"
+    android:background="@android:color/white"
+    android:orientation="horizontal">
+
+    <TextView
+      android:id="@+id/wish_list"
+      android:layout_width="0dp"
+      android:layout_height="wrap_content"
+      android:layout_weight="1"
+      android:drawableLeft="@drawable/ic_wishlist"
+      android:gravity="center"
+      android:padding="15dp"
+      android:text="@string/wish_list"
+      android:textColor="@android:color/black"
+      android:textSize="15sp"/>
+
+    <TextView
+      android:id="@+id/add_to_cart"
+      android:layout_width="0dp"
+      android:layout_height="match_parent"
+      android:layout_weight="1"
+      android:background="@color/cart_bg"
+      android:drawableLeft="@drawable/ic_cart"
+      android:gravity="center"
+      android:paddingBottom="10dp"
+      android:paddingLeft="30dp"
+      android:paddingRight="30dp"
+      android:paddingTop="10dp"
+      android:text="@string/add_to_cart"
+      android:textColor="@android:color/white"
+      android:textSize="15sp"
+      android:textStyle="bold"/>
+  </LinearLayout>
 
 </FrameLayout>
