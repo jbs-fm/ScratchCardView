@@ -2,9 +2,7 @@ package com.goibibo.libs.views;
 
 import android.content.Context;
 import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
-import android.graphics.LinearGradient;
 import android.graphics.Paint;
 import android.graphics.Path;
 import android.graphics.PorterDuff;
@@ -14,10 +12,10 @@ import android.graphics.Shader;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.os.AsyncTask;
-import android.support.v4.content.ContextCompat;
 import android.util.AttributeSet;
 import android.util.Log;
 import android.view.MotionEvent;
+import android.view.View;
 import android.widget.RelativeLayout;
 
 import com.goibibo.libs.utils.BitmapUtils;
@@ -26,33 +24,37 @@ import com.goibiboutils.views.R;
 
 public class ScratchRelativeLayoutView extends RelativeLayout {
   public static final float STROKE_WIDTH = 12.0F;
+  private static final float TOUCH_TOLERANCE = 4.0F;
   private float mX;
   private float mY;
-  private static final float TOUCH_TOLERANCE = 4.0F;
   private Bitmap mScratchBitmap;
   private Canvas mCanvas;
   private Path mErasePath;
   private Path mTouchPath;
   private Paint mBitmapPaint;
   private Paint mErasePaint;
-  private Paint mGradientBgPaint;
+  //  private Paint mGradientBgPaint;
   private BitmapDrawable mDrawable;
   private ScratchRelativeLayoutView.IRevealListener mRevealListener;
   private float mRevealPercent;
   private int mThreadCount = 0;
+  private Context mContext;
 
   public ScratchRelativeLayoutView(Context context) {
     super(context);
+    mContext = context;
     this.init();
   }
 
   public ScratchRelativeLayoutView(Context context, AttributeSet set) {
     super(context, set);
+    mContext = context;
     this.init();
   }
 
   public ScratchRelativeLayoutView(Context context, AttributeSet attrs, int defStyleAttr) {
     super(context, attrs, defStyleAttr);
+    mContext = context;
     this.init();
   }
 
@@ -70,26 +72,62 @@ public class ScratchRelativeLayoutView extends RelativeLayout {
     this.mErasePaint.setStrokeJoin(Paint.Join.BEVEL);
     this.mErasePaint.setStrokeCap(Paint.Cap.ROUND);
     this.setStrokeWidth(6);
-    this.mGradientBgPaint = new Paint();
+//    this.mGradientBgPaint = new Paint();
     this.mErasePath = new Path();
     this.mBitmapPaint = new Paint(4);
-    Bitmap scratchBitmap = BitmapFactory.decodeResource(this.getResources(), R.drawable.ic_scratch_pattern);
-    this.mDrawable = new BitmapDrawable(this.getResources(), scratchBitmap);
-    this.mDrawable.setTileModeXY(Shader.TileMode.REPEAT, Shader.TileMode.REPEAT);
-    this.setEraserMode();
+    //setScratchView();
   }
+
+  public void setScratchView(final View view) {
+    //Bitmap scratchBitmap = BitmapFactory.decodeResource(this.getResources(), R.drawable.ic_scratch_pattern);
+
+    view.post(new Runnable() {
+      @Override
+      public void run() {
+        ScratchRelativeLayoutView.this.mScratchBitmap = loadBitmapFromView(view);
+        ScratchRelativeLayoutView.this.mDrawable = new BitmapDrawable(mContext.getResources(), ScratchRelativeLayoutView.this.mScratchBitmap);
+        ScratchRelativeLayoutView.this.mDrawable.setTileModeXY(Shader.TileMode.REPEAT, Shader.TileMode.REPEAT);
+        ScratchRelativeLayoutView.this.setEraserMode();
+        drawScratchView();
+      }
+    });
+  }
+
+  private Bitmap loadBitmapFromView(View view) {
+    Bitmap b = Bitmap.createBitmap(view.getMeasuredWidth(), view.getMeasuredHeight(), Bitmap.Config.ARGB_8888);
+    Canvas canvas = new Canvas(b);
+    view.requestLayout();
+    Drawable bgDrawable = view.getBackground();
+    if (bgDrawable != null) {
+      //has background drawable, then draw it on the canvas
+      bgDrawable.draw(canvas);
+    } else {
+      //does not have background drawable, then draw white background on the canvas
+      canvas.drawColor(mContext.getResources().getColor(R.color.scratch_start_gradient));
+    }
+    view.draw(canvas);
+    return b;
+  }
+
 
   protected void onSizeChanged(int w, int h, int oldw, int oldh) {
     super.onSizeChanged(w, h, oldw, oldh);
-    this.mScratchBitmap = Bitmap.createBitmap(w, h, Bitmap.Config.ARGB_8888);
-    this.mCanvas = new Canvas(this.mScratchBitmap);
-    Rect rect = new Rect(0, 0, this.mScratchBitmap.getWidth(), this.mScratchBitmap.getHeight());
-    this.mDrawable.setBounds(rect);
-    int startGradientColor = ContextCompat.getColor(this.getContext(), R.color.scratch_start_gradient);
-    int endGradientColor = ContextCompat.getColor(this.getContext(), R.color.scratch_end_gradient);
-    this.mGradientBgPaint.setShader(new LinearGradient(0.0F, 0.0F, 0.0F, (float) this.getHeight(), startGradientColor, endGradientColor, Shader.TileMode.MIRROR));
-    this.mCanvas.drawRect(rect, this.mGradientBgPaint);
-    this.mDrawable.draw(this.mCanvas);
+    //drawScratchView(w, h);
+    //drawScratchView();
+  }
+
+  private void drawScratchView() {
+    if (this.mScratchBitmap != null) {
+      this.mCanvas = new Canvas(this.mScratchBitmap);
+      Rect rect = new Rect(0, 0, this.mScratchBitmap.getWidth(), this.mScratchBitmap.getHeight());
+      if (this.mDrawable != null) {
+        this.mDrawable.setBounds(rect);
+      }
+      ScratchRelativeLayoutView.this.mDrawable = new BitmapDrawable(mContext.getResources(), ScratchRelativeLayoutView.this.mScratchBitmap);
+      if (this.mDrawable != null) {
+        this.mDrawable.draw(this.mCanvas);
+      }
+    }
   }
 
   protected void onDraw(Canvas canvas) {
@@ -99,8 +137,10 @@ public class ScratchRelativeLayoutView extends RelativeLayout {
   @Override
   protected void dispatchDraw(Canvas canvas) {
     super.dispatchDraw(canvas);
-    canvas.drawBitmap(this.mScratchBitmap, 0.0F, 0.0F, this.mBitmapPaint);
-    canvas.drawPath(this.mErasePath, this.mErasePaint);
+    if (this.mScratchBitmap != null) {
+      canvas.drawBitmap(this.mScratchBitmap, 0.0F, 0.0F, this.mBitmapPaint);
+      canvas.drawPath(this.mErasePath, this.mErasePaint);
+    }
   }
 
   private void touch_start(float x, float y) {
@@ -109,6 +149,7 @@ public class ScratchRelativeLayoutView extends RelativeLayout {
     this.mX = x;
     this.mY = y;
   }
+
 
   public void clear() {
     int[] bounds = this.getLayoutBounds();
