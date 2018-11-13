@@ -1,4 +1,30 @@
 apply plugin: 'com.android.library'
+apply plugin: 'com.github.dcendents.android-maven'
+apply plugin: 'com.jfrog.bintray'
+
+ext {
+  bintrayRepo = 'maven'
+  bintrayName = 'ScratchCardView'
+
+  publishedGroupId = 'com.goibibo.libs'
+  libraryName = 'ScratchCardView'
+  artifact = 'scratchcardview'
+
+  libraryDescription = 'This is a pluggable library for building a scrach card view for your android app.'
+
+  siteUrl = 'https://github.com/goibibo/ScratchCardView'
+  gitUrl = 'https://github.com/goibibo/ScratchCardView.git'
+
+  libraryVersion = '0.1.0'
+
+  developerId = 'mohitgoibibo'
+  developerName = 'Mohit Gupt'
+  developerEmail = 'mohit.gupt@go-mmt.com'
+
+  licenseName = 'The Apache Software License, Version 2.0'
+  licenseUrl = 'http://www.apache.org/licenses/LICENSE-2.0.txt'
+  allLicenses = ["Apache-2.0"]
+}
 
 android {
   compileSdkVersion 28
@@ -23,3 +49,5 @@ dependencies {
   testImplementation 'junit:junit:4.12'
   implementation 'com.android.support:appcompat-v7:28.0.0'
 }
+
+apply from: './configurations.gradle'
