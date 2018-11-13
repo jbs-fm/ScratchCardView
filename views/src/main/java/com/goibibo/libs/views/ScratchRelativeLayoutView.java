@@ -33,7 +33,6 @@ public class ScratchRelativeLayoutView extends RelativeLayout {
   private Path mTouchPath;
   private Paint mBitmapPaint;
   private Paint mErasePaint;
-  //  private Paint mGradientBgPaint;
   private BitmapDrawable mDrawable;
   private ScratchRelativeLayoutView.IRevealListener mRevealListener;
   private float mRevealPercent;
@@ -72,15 +71,11 @@ public class ScratchRelativeLayoutView extends RelativeLayout {
     this.mErasePaint.setStrokeJoin(Paint.Join.BEVEL);
     this.mErasePaint.setStrokeCap(Paint.Cap.ROUND);
     this.setStrokeWidth(6);
-//    this.mGradientBgPaint = new Paint();
     this.mErasePath = new Path();
     this.mBitmapPaint = new Paint(4);
-    //setScratchView();
   }
 
   public void setScratchView(final View view) {
-    //Bitmap scratchBitmap = BitmapFactory.decodeResource(this.getResources(), R.drawable.ic_scratch_pattern);
-
     view.post(new Runnable() {
       @Override
       public void run() {
@@ -112,8 +107,6 @@ public class ScratchRelativeLayoutView extends RelativeLayout {
 
   protected void onSizeChanged(int w, int h, int oldw, int oldh) {
     super.onSizeChanged(w, h, oldw, oldh);
-    //drawScratchView(w, h);
-    //drawScratchView();
   }
 
   private void drawScratchView() {

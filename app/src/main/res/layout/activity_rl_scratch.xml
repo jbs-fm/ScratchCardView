@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout
+<RelativeLayout
   android:id="@+id/parent"
   xmlns:android="http://schemas.android.com/apk/res/android"
   xmlns:tools="http://schemas.android.com/tools"
@@ -8,16 +8,13 @@
   tools:context=".RelativeLayoutScratchActivity">
 
   <com.goibibo.libs.views.ScratchRelativeLayoutView
-    android:id="@+id/sample_image"
+    android:id="@+id/lytScratch"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@android:color/white">
 
-    <ImageView
-      android:layout_width="match_parent"
-      android:layout_height="match_parent"
-      android:layout_alignParentTop="true"
-      android:src="@drawable/analytics"/>
+    <include layout="@layout/lyt_hidden"/>
+
   </com.goibibo.libs.views.ScratchRelativeLayoutView>
 
-</android.support.constraint.ConstraintLayout>
+</RelativeLayout>
