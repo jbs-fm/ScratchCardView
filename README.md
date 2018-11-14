@@ -6,12 +6,15 @@ Intro
 
 ScratchView repo is UX Design involving scratch cards like views which are scratched to reveal the information they conceal. There
 are two types of ScratchView 
-* <a href='https://github.com/cooltechworks/ScratchView/blob/master/views/src/main/java/com/cooltechworks/views/ScratchImageView.java'> ScratchImageView </a>
+* <a href='https://github.com/goibibo/ScratchCardView/blob/master/views/src/main/java/com/goibibo/libs/views/ScratchImageView.java'> ScratchImageView </a>
     - A Child of ImageView which conceals the image. Scratching over the view will reveal the hidden image.
   
-* <a href='https://github.com/cooltechworks/ScratchView/blob/master/views/src/main/java/com/cooltechworks/views/ScratchTextView.java'> ScratchTextView </a>
+* <a href='https://github.com/goibibo/ScratchCardView/blob/master/views/src/main/java/com/goibibo/libs/views/ScratchTextView.java'> ScratchTextView </a>
     - A Child of TextView which conceals the text. Scratching over the view will reveal the hidden text.
-    
+
+* <a href='https://github.com/goibibo/ScratchCardView/blob/master/views/src/main/java/com/goibibo/libs/views/ScratchRelativeLayoutView.java'> ScratchRelativeLayoutView </a>
+    - A Child of RelativeLayout which conceals a relative layout. Scratching over the view will reveal the hidden RelativeLayout. Also the scratch-able view is a RelativeLayout.
+
 Demo Screen
 ------    
 
@@ -36,7 +39,7 @@ Usage
 ##### XML
 
 ```xml
-<com.cooltechworks.views.ScratchImageView
+<com.goibibo.libs.views.ScratchImageView
   android:id="@+id/sample_image"
   android:layout_width="wrap_content"
   android:layout_height="wrap_content"
@@ -69,7 +72,7 @@ scratchImageView.setRevealListener(new ScratchImageView.IRevealListener() {
 ##### XML
 
 ```xml
-<com.cooltechworks.views.ScratchTextView
+<com.goibibo.libs.views.ScratchTextView
   android:layout_width="wrap_content"
   android:layout_height="wrap_content"
   android:gravity="center|end"
@@ -117,12 +120,22 @@ dependencies {
 Developed By
 ------------
 
-* Harish Sridharan - <harish.sridhar@gmail.com>
+* Mohit Gupt - <mohit.gupt@go-mmt.com>
+* Akash Agrawal - <akash.agrawal@go-mmt.com>
 
+Forked From
+-----------
+
+This repository is forked from ScratchView (https://github.com/sharish/ScratchView).
+
+###### Special thanks:
+
+* Harish Sridharan - <harish.sridhar@gmail.com>
 
 License
 --------
 ```
+Copyright 2018 ibibo Group Pvt. Ltd.
 Copyright 2016 Harish Sridharan
 
 Licensed under the Apache License, Version 2.0 (the "License");
