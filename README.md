@@ -117,7 +117,7 @@ dependencies {
 }
 ```
 
-Developed By
+Contributors
 ------------
 
 * Mohit Gupt - <mohit.gupt@go-mmt.com>
