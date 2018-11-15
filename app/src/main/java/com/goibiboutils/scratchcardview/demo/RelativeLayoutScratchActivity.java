@@ -4,9 +4,7 @@ import android.content.Context;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.LayoutInflater;
-import android.view.View;
 import android.widget.LinearLayout;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.goibibo.libs.views.ScratchRelativeLayoutView;
@@ -25,14 +23,14 @@ public class RelativeLayoutScratchActivity extends AppCompatActivity {
     /**
      Using Inflated View
      */
-    final RelativeLayout parent = findViewById(R.id.parent);
-    final View scratchView = inflater.inflate(R.layout.lyt_scratch, parent, true);
-    scratchRelativeLayoutView.setScratchView(scratchView, parent);
+//    final RelativeLayout parent = findViewById(R.id.parent);
+//    final View scratchView = inflater.inflate(R.layout.lyt_scratch, parent, true);
+//    scratchRelativeLayoutView.setScratchView(scratchView, parent);
 
     /**
      * Using Raw View
      */
-//    scratchRelativeLayoutView.setScratchView(R.layout.lyt_scratch);
+    scratchRelativeLayoutView.setScratchView(R.layout.lyt_scratch);
 
     final LinearLayout lytHidden = findViewById(R.id.lytHidden);
     ((TextView) lytHidden.findViewById(R.id.txt)).setText("123434524");

@@ -1,5 +1,3 @@
 <resources>
   <string name="app_name">Views</string>
-  <string name="parent_view_tag">parent_view_tag</string>
-  <string name="scratch_view_tag">scratch_view_tag</string>
 </resources>
