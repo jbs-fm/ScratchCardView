@@ -8,7 +8,7 @@ ext {
 
   publishedGroupId = 'com.goibibo.libs'
   libraryName = 'ScratchCardView'
-  artifact = 'scratchcardview'
+  artifact = 'views'
 
   libraryDescription = 'This is a pluggable library for building a scrach card view for your android app.'
 
@@ -20,6 +20,7 @@ ext {
   developerId = 'mohitgoibibo'
   developerName = 'Mohit Gupt'
   developerEmail = 'mohit.gupt@go-mmt.com'
+  organization = 'goibibo'
 
   licenseName = 'The Apache Software License, Version 2.0'
   licenseUrl = 'http://www.apache.org/licenses/LICENSE-2.0.txt'
@@ -50,4 +51,5 @@ dependencies {
   implementation 'com.android.support:appcompat-v7:28.0.0'
 }
 
-apply from: './configurations.gradle'
+apply from: 'https://raw.githubusercontent.com/quangctkm9207/template-files/master/android/gradle/install.gradle'
+apply from: 'https://raw.githubusercontent.com/quangctkm9207/template-files/master/android/gradle/bintray.gradle'
