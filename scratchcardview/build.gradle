@@ -8,14 +8,14 @@ ext {
 
   publishedGroupId = 'com.goibibo.libs'
   libraryName = 'ScratchCardView'
-  artifact = 'views'
+  artifact = 'scratchcardview'
 
   libraryDescription = 'This is a pluggable library for building a scrach card view for your android app.'
 
   siteUrl = 'https://github.com/goibibo/ScratchCardView'
   gitUrl = 'https://github.com/goibibo/ScratchCardView.git'
 
-  libraryVersion = '0.1.0'
+  libraryVersion = '0.1.1'
 
   developerId = 'mohitgoibibo'
   developerName = 'Mohit Gupt'
