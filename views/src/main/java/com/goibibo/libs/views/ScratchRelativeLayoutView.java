@@ -29,7 +29,6 @@ import com.goibiboutils.views.R;
 
 public class ScratchRelativeLayoutView extends RelativeLayout {
   public static final float STROKE_WIDTH = 12.0F;
-  private static final String TAG_VIEW = "SCRATCH_TAG";
   private static final float TOUCH_TOLERANCE = 4.0F;
   private float mX;
   private float mY;
@@ -69,7 +68,6 @@ public class ScratchRelativeLayoutView extends RelativeLayout {
   }
 
   private void init(AttributeSet set) {
-    //this.setTag(TAG_VIEW);
     this.mTouchPath = new Path();
     this.mErasePaint = new Paint();
     this.mErasePaint.setAntiAlias(true);
@@ -119,24 +117,14 @@ public class ScratchRelativeLayoutView extends RelativeLayout {
   public void setScratchView(@LayoutRes final int layoutResource) {
     LayoutInflater inflater = (LayoutInflater) mContext.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
     if (mContext instanceof Activity) {
-
-      //final ViewGroup activityRootView = ((Activity) mContext).findViewById(android.R.id.content);
-      //final ViewGroup scratchParentView = activityRootView.findViewWithTag(mContext.getResources().getString(R.string.parent_view_tag));
-
       inflater.inflate(layoutResource, ScratchRelativeLayoutView.this, true);
       final ViewGroup lytScratch = ScratchRelativeLayoutView.this.findViewWithTag(mContext.getResources().getString(R.string.scratch_view_tag));
 
       ScratchRelativeLayoutView.this.post(new Runnable() {
         @Override
         public void run() {
-
           ScratchRelativeLayoutView.this.mScratchBitmap = loadBitmapFromView(lytScratch);
-          //((ViewGroup) scratchView.getParent()).removeView(scratchView);
-          //ScratchRelativeLayoutView.this.removeView(ScratchRelativeLayoutView.this.getChildAt(1));
-          //scratchParentView.removeView(scratchView);
-          //scratchParentView.removeView(scratchParentView.getChildAt(1));
-          ScratchRelativeLayoutView.this.removeViewAt(1);
-          //ScratchRelativeLayoutView.this.removeView(ScratchRelativeLayoutView.this.getChildAt(1));
+          ScratchRelativeLayoutView.this.removeView(lytScratch);
           ScratchRelativeLayoutView.this.mDrawable = new BitmapDrawable(mContext.getResources(), ScratchRelativeLayoutView.this.mScratchBitmap);
           ScratchRelativeLayoutView.this.mDrawable.setTileModeXY(Shader.TileMode.REPEAT, Shader.TileMode.REPEAT);
           ScratchRelativeLayoutView.this.setEraserMode();
