@@ -6,6 +6,7 @@
   android:layout_gravity="center"
   android:background="#FF0000"
   android:gravity="center"
+  android:tag="@string/scratch_view_tag"
   >
 
   <TextView

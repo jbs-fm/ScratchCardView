@@ -5,13 +5,16 @@
   xmlns:tools="http://schemas.android.com/tools"
   android:layout_width="match_parent"
   android:layout_height="match_parent"
+  android:tag="@string/parent_view_tag"
   tools:context=".RelativeLayoutScratchActivity">
 
   <com.goibibo.libs.views.ScratchRelativeLayoutView
     android:id="@+id/lytScratch"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@android:color/white">
+    android:background="@android:color/white"
+    >
+    <!--app:scratchLayout="@layout/lyt_scratch"-->
 
     <include layout="@layout/lyt_hidden"/>
 

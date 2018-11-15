@@ -1,6 +1,8 @@
 package com.goibibo.libs.views;
 
+import android.app.Activity;
 import android.content.Context;
+import android.content.res.TypedArray;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.Paint;
@@ -12,10 +14,13 @@ import android.graphics.Shader;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.os.AsyncTask;
+import android.support.annotation.LayoutRes;
 import android.util.AttributeSet;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.RelativeLayout;
 
 import com.goibibo.libs.utils.BitmapUtils;
@@ -24,6 +29,7 @@ import com.goibiboutils.views.R;
 
 public class ScratchRelativeLayoutView extends RelativeLayout {
   public static final float STROKE_WIDTH = 12.0F;
+  private static final String TAG_VIEW = "SCRATCH_TAG";
   private static final float TOUCH_TOLERANCE = 4.0F;
   private float mX;
   private float mY;
@@ -38,30 +44,32 @@ public class ScratchRelativeLayoutView extends RelativeLayout {
   private float mRevealPercent;
   private int mThreadCount = 0;
   private Context mContext;
+  private int scratchLayoutResourceId = 0;
 
   public ScratchRelativeLayoutView(Context context) {
     super(context);
     mContext = context;
-    this.init();
+    this.init(null);
   }
 
   public ScratchRelativeLayoutView(Context context, AttributeSet set) {
     super(context, set);
     mContext = context;
-    this.init();
+    this.init(set);
   }
 
   public ScratchRelativeLayoutView(Context context, AttributeSet attrs, int defStyleAttr) {
     super(context, attrs, defStyleAttr);
     mContext = context;
-    this.init();
+    this.init(attrs);
   }
 
   public void setStrokeWidth(int multiplier) {
     this.mErasePaint.setStrokeWidth((float) multiplier * 12.0F);
   }
 
-  private void init() {
+  private void init(AttributeSet set) {
+    //this.setTag(TAG_VIEW);
     this.mTouchPath = new Path();
     this.mErasePaint = new Paint();
     this.mErasePaint.setAntiAlias(true);
@@ -73,19 +81,71 @@ public class ScratchRelativeLayoutView extends RelativeLayout {
     this.setStrokeWidth(6);
     this.mErasePath = new Path();
     this.mBitmapPaint = new Paint(4);
+
+    if (set != null) {
+      TypedArray typedArray = mContext.obtainStyledAttributes(set, R.styleable.ScratchRelativeLayoutView);
+      scratchLayoutResourceId = typedArray.getResourceId(R.styleable.ScratchRelativeLayoutView_scratchLayout, 0);
+      typedArray.recycle();
+
+      if (scratchLayoutResourceId != 0) {
+        setScratchView(scratchLayoutResourceId);
+      }
+    }
   }
 
-  public void setScratchView(final View view) {
+  /**
+   * @param view   Scratch View..
+   * @param parent Parent of the activity layout..
+   */
+  public void setScratchView(final View view, final ViewGroup parent) {
+    parent.setTag(mContext.getResources().getString(R.string.parent_view_tag));
+    view.setTag(mContext.getResources().getString(R.string.scratch_view_tag));
     view.post(new Runnable() {
       @Override
       public void run() {
         ScratchRelativeLayoutView.this.mScratchBitmap = loadBitmapFromView(view);
+        parent.removeView(parent.getChildAt(1));
         ScratchRelativeLayoutView.this.mDrawable = new BitmapDrawable(mContext.getResources(), ScratchRelativeLayoutView.this.mScratchBitmap);
         ScratchRelativeLayoutView.this.mDrawable.setTileModeXY(Shader.TileMode.REPEAT, Shader.TileMode.REPEAT);
         ScratchRelativeLayoutView.this.setEraserMode();
         drawScratchView();
       }
     });
+  }
+
+  /**
+   * @param layoutResource layout resource of scratch view
+   */
+  public void setScratchView(@LayoutRes final int layoutResource) {
+    LayoutInflater inflater = (LayoutInflater) mContext.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+    if (mContext instanceof Activity) {
+
+      //final ViewGroup activityRootView = ((Activity) mContext).findViewById(android.R.id.content);
+      //final ViewGroup scratchParentView = activityRootView.findViewWithTag(mContext.getResources().getString(R.string.parent_view_tag));
+
+      inflater.inflate(layoutResource, ScratchRelativeLayoutView.this, true);
+      final ViewGroup lytScratch = ScratchRelativeLayoutView.this.findViewWithTag(mContext.getResources().getString(R.string.scratch_view_tag));
+
+      ScratchRelativeLayoutView.this.post(new Runnable() {
+        @Override
+        public void run() {
+
+          ScratchRelativeLayoutView.this.mScratchBitmap = loadBitmapFromView(lytScratch);
+          //((ViewGroup) scratchView.getParent()).removeView(scratchView);
+          //ScratchRelativeLayoutView.this.removeView(ScratchRelativeLayoutView.this.getChildAt(1));
+          //scratchParentView.removeView(scratchView);
+          //scratchParentView.removeView(scratchParentView.getChildAt(1));
+          ScratchRelativeLayoutView.this.removeViewAt(1);
+          //ScratchRelativeLayoutView.this.removeView(ScratchRelativeLayoutView.this.getChildAt(1));
+          ScratchRelativeLayoutView.this.mDrawable = new BitmapDrawable(mContext.getResources(), ScratchRelativeLayoutView.this.mScratchBitmap);
+          ScratchRelativeLayoutView.this.mDrawable.setTileModeXY(Shader.TileMode.REPEAT, Shader.TileMode.REPEAT);
+          ScratchRelativeLayoutView.this.setEraserMode();
+          drawScratchView();
+        }
+      });
+    } else {
+      Log.e("Scratch", "Not An Activity.");
+    }
   }
 
   private Bitmap loadBitmapFromView(View view) {
