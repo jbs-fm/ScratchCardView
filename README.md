@@ -109,15 +109,15 @@ Adding to your project
 ```gradle
 repositories {
     jcenter()
-    maven { url "https://jitpack.io" }
+    maven { url  "https://dl.bintray.com/goibibo/maven" }
 }
 
 dependencies {
-    compile 'com.github.cooltechworks:ScratchView:v1.1'
+    implementation 'com.goibibo.libs:scratchcardview:0.1.1'
 }
 ```
 
-Developed By
+Contributors
 ------------
 
 * Mohit Gupt - <mohit.gupt@go-mmt.com>
