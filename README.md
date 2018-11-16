@@ -109,7 +109,6 @@ Adding to your project
 ```gradle
 repositories {
     jcenter()
-    maven { url  "https://dl.bintray.com/goibibo/maven" }
 }
 
 dependencies {
