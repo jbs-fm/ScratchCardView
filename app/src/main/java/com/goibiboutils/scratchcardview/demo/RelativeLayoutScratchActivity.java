@@ -33,7 +33,7 @@ public class RelativeLayoutScratchActivity extends AppCompatActivity {
     scratchRelativeLayoutView.setScratchView(R.layout.lyt_scratch);
 
     final LinearLayout lytHidden = findViewById(R.id.lytHidden);
-    ((TextView) lytHidden.findViewById(R.id.txt)).setText("123434524");
+    ((TextView) lytHidden.findViewById(R.id.txt)).setText("You won 25 $");
 
     scratchRelativeLayoutView.setRevealListener(new ScratchRelativeLayoutView.IRevealListener() {
       @Override
