@@ -1,21 +1,32 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
-  android:id="@+id/parent"
+<com.goibibo.libs.views.ScratchScrollView
   xmlns:android="http://schemas.android.com/apk/res/android"
   xmlns:tools="http://schemas.android.com/tools"
   android:layout_width="match_parent"
   android:layout_height="match_parent"
-  tools:context=".RelativeLayoutScratchActivity">
+  android:background="#FFFFFF"
+  android:fillViewport="true">
 
-  <com.goibibo.libs.views.ScratchRelativeLayoutView
-    android:id="@+id/lytScratch"
+  <RelativeLayout
+    android:id="@+id/parent"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@android:color/white"
-    >
+    android:layout_gravity="center"
+    android:gravity="center"
+    tools:context=".RelativeLayoutScratchActivity">
 
-    <include layout="@layout/lyt_hidden"/>
 
-  </com.goibibo.libs.views.ScratchRelativeLayoutView>
+    <com.goibibo.libs.views.ScratchRelativeLayoutView
+      android:id="@+id/lytScratch"
+      android:layout_width="300dp"
+      android:layout_height="300dp"
+      android:layout_centerInParent="true"
+      android:background="@android:color/white"
+      >
 
-</RelativeLayout>
+      <include layout="@layout/lyt_hidden"/>
+
+    </com.goibibo.libs.views.ScratchRelativeLayoutView>
+
+  </RelativeLayout>
+</com.goibibo.libs.views.ScratchScrollView>
