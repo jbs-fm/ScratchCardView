@@ -4,8 +4,6 @@ import android.content.Context;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.LayoutInflater;
-import android.widget.LinearLayout;
-import android.widget.TextView;
 
 import com.goibibo.libs.views.ScratchRelativeLayoutView;
 
@@ -20,6 +18,7 @@ public class RelativeLayoutScratchActivity extends AppCompatActivity {
     ScratchRelativeLayoutView scratchRelativeLayoutView = findViewById(R.id.lytScratch);
     scratchRelativeLayoutView.setStrokeWidth(20);
 
+
     /**
      Using Inflated View
      */
@@ -32,8 +31,6 @@ public class RelativeLayoutScratchActivity extends AppCompatActivity {
      */
     scratchRelativeLayoutView.setScratchView(R.layout.lyt_scratch);
 
-    final LinearLayout lytHidden = findViewById(R.id.lytHidden);
-    ((TextView) lytHidden.findViewById(R.id.txt)).setText("You won 25 $");
 
     scratchRelativeLayoutView.setRevealListener(new ScratchRelativeLayoutView.IRevealListener() {
       @Override
@@ -47,4 +44,5 @@ public class RelativeLayoutScratchActivity extends AppCompatActivity {
       }
     });
   }
+
 }
