@@ -106,7 +106,7 @@ public class ScratchRelativeLayoutView extends RelativeLayout {
     if (mContext instanceof Activity) {
       inflater.inflate(layoutResource, ScratchRelativeLayoutView.this, true);
 
-      ScratchRelativeLayoutView.this.post(new Runnable() {
+      ScratchRelativeLayoutView.this.postDelayed(new Runnable() {
         @Override
         public void run() {
           final ViewGroup lytScratch = (ViewGroup) ScratchRelativeLayoutView.this.getChildAt(1);
@@ -117,7 +117,7 @@ public class ScratchRelativeLayoutView extends RelativeLayout {
           ScratchRelativeLayoutView.this.setEraserMode();
           drawScratchView();
         }
-      });
+      }, 300);
     } else {
       Log.e("Scratch", "Not An Activity.");
     }
@@ -215,12 +215,14 @@ public class ScratchRelativeLayoutView extends RelativeLayout {
   }
 
   private void drawPath() {
-    this.mErasePath.lineTo(this.mX, this.mY);
-    this.mCanvas.drawPath(this.mErasePath, this.mErasePaint);
-    this.mTouchPath.reset();
-    this.mErasePath.reset();
-    this.mErasePath.moveTo(this.mX, this.mY);
-    this.checkRevealed();
+    if(this.mCanvas != null) {
+      this.mErasePath.lineTo(this.mX, this.mY);
+      this.mCanvas.drawPath(this.mErasePath, this.mErasePaint);
+      this.mTouchPath.reset();
+      this.mErasePath.reset();
+      this.mErasePath.moveTo(this.mX, this.mY);
+      this.checkRevealed();
+    }
   }
 
   public void reveal() {
@@ -231,6 +233,7 @@ public class ScratchRelativeLayoutView extends RelativeLayout {
     this.drawPath();
   }
 
+  @Override
   public boolean onTouchEvent(MotionEvent event) {
     float x = event.getX();
     float y = event.getY();
