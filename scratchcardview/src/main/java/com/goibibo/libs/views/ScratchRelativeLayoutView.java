@@ -78,6 +78,14 @@ public class ScratchRelativeLayoutView extends RelativeLayout {
     this.setStrokeWidth(6);
     this.mErasePath = new Path();
     this.mBitmapPaint = new Paint(4);
+    this.post(new Runnable() {
+      @Override
+      public void run() {
+        if (ScratchRelativeLayoutView.this.getChildCount() > 0) {
+          getChildAt(0).setVisibility(INVISIBLE);
+        }
+      }
+    });
   }
 
   /**
@@ -116,6 +124,9 @@ public class ScratchRelativeLayoutView extends RelativeLayout {
           ScratchRelativeLayoutView.this.mDrawable.setTileModeXY(Shader.TileMode.REPEAT, Shader.TileMode.REPEAT);
           ScratchRelativeLayoutView.this.setEraserMode();
           drawScratchView();
+          if (ScratchRelativeLayoutView.this.getChildCount() > 0) {
+            ScratchRelativeLayoutView.this.getChildAt(0).setVisibility(VISIBLE);
+          }
         }
       }, 300);
     } else {
@@ -215,7 +226,7 @@ public class ScratchRelativeLayoutView extends RelativeLayout {
   }
 
   private void drawPath() {
-    if(this.mCanvas != null) {
+    if (this.mCanvas != null) {
       this.mErasePath.lineTo(this.mX, this.mY);
       this.mCanvas.drawPath(this.mErasePath, this.mErasePaint);
       this.mTouchPath.reset();
