@@ -5,15 +5,16 @@ Intro
 ------
 
 ScratchView repo is UX Design involving scratch cards like views which are scratched to reveal the information they conceal. There
-are two types of ScratchView 
-* <a href='https://github.com/goibibo/ScratchCardView/blob/master/views/src/main/java/com/goibibo/libs/views/ScratchImageView.java'> ScratchImageView </a>
+are two types of ScratchView
+* <a href='https://github.com/goibibo/ScratchCardView/blob/master/scratchcardview/src/main/java/com/goibibo/libs/views/ScratchRelativeLayoutView.java'> ScratchRelativeLayoutView</a>
+    - A Child of RelativeLayout which conceals a relative layout. Scratching over the view will reveal the hidden RelativeLayout. Also the scratch-able view is a RelativeLayout.
+
+* <a href='https://github.com/goibibo/ScratchCardView/blob/master/scratchcardview/src/main/java/com/goibibo/libs/views/ScratchImageView.java'> ScratchImageView</a>
     - A Child of ImageView which conceals the image. Scratching over the view will reveal the hidden image.
-  
-* <a href='https://github.com/goibibo/ScratchCardView/blob/master/views/src/main/java/com/goibibo/libs/views/ScratchTextView.java'> ScratchTextView </a>
+
+* <a href='https://github.com/goibibo/ScratchCardView/blob/master/scratchcardview/src/main/java/com/goibibo/libs/views/ScratchTextView.java'> ScratchTextView</a>
     - A Child of TextView which conceals the text. Scratching over the view will reveal the hidden text.
 
-* <a href='https://github.com/goibibo/ScratchCardView/blob/master/views/src/main/java/com/goibibo/libs/views/ScratchRelativeLayoutView.java'> ScratchRelativeLayoutView </a>
-    - A Child of RelativeLayout which conceals a relative layout. Scratching over the view will reveal the hidden RelativeLayout. Also the scratch-able view is a RelativeLayout.
 
 Demo Screen
 ------    
@@ -33,6 +34,45 @@ through onReveal() method.
 
 Usage
 --------
+
+### ScratchRelativeLayoutView
+
+##### XML
+
+```xml
+<com.goibibo.libs.views.ScratchRelativeLayoutView
+        android:id="@+id/lytScratch"
+        android:layout_width="300dp"
+        android:layout_height="300dp"
+        android:layout_centerInParent="true"
+        android:background="@android:color/white">
+
+        <include layout="@layout/lyt_hidden"/>
+
+</com.goibibo.libs.views.ScratchRelativeLayoutView>
+
+```
+
+##### JAVA
+
+```java
+ScratchRelativeLayoutView scratchRelativeLayoutView = findViewById(R.id.lytScratch);
+scratchRelativeLayoutView.setStrokeWidth(20);
+scratchRelativeLayoutView.setScratchView(R.layout.lyt_scratch); // scratchable layout
+scratchRelativeLayoutView.setRevealListener(new ScratchRelativeLayoutView.IRevealListener() {
+   @Override
+   public void onRevealed(ScratchRelativeLayoutView tv) {
+     // on reveal
+   }
+
+   @Override
+   public void onRevealPercentChangedListener(ScratchRelativeLayoutView siv, float percent) {
+     // on percent change
+   }
+});
+
+```
+
 
 ### ScratchImageView
 
@@ -112,7 +152,7 @@ repositories {
 }
 
 dependencies {
-    implementation 'com.goibibo.libs:scratchcardview:0.1.1'
+    implementation 'com.goibibo.libs:scratchcardview:0.1.4'
 }
 ```
 
@@ -122,12 +162,8 @@ Contributors
 * Mohit Gupt - <mohit.gupt@go-mmt.com>
 * Akash Agrawal - <akash.agrawal@go-mmt.com>
 
-Forked From
------------
-
-This repository is forked from ScratchView (https://github.com/sharish/ScratchView).
-
-###### Special thanks:
+Special Thanks
+--------------
 
 * Harish Sridharan - <harish.sridhar@gmail.com>
 
