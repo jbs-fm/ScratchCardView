@@ -152,7 +152,7 @@ repositories {
 }
 
 dependencies {
-    implementation 'com.goibibo.libs:scratchcardview:0.1.4'
+    implementation 'com.goibibo.libs:scratchcardview:0.1.5'
 }
 ```
 
