@@ -112,14 +112,14 @@ public class ScratchRelativeLayoutView extends RelativeLayout {
   public void setScratchView(@LayoutRes final int layoutResource) {
     LayoutInflater inflater = (LayoutInflater) mContext.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
     if (mContext instanceof Activity) {
-      inflater.inflate(layoutResource, ScratchRelativeLayoutView.this, true);
+      final View view = inflater.inflate(layoutResource, ScratchRelativeLayoutView.this, true);
 
       ScratchRelativeLayoutView.this.postDelayed(new Runnable() {
         @Override
         public void run() {
-          final ViewGroup lytScratch = (ViewGroup) ScratchRelativeLayoutView.this.getChildAt(1);
-          ScratchRelativeLayoutView.this.mScratchBitmap = loadBitmapFromView(lytScratch);
-          ScratchRelativeLayoutView.this.removeView(lytScratch);
+          //final ViewGroup lytScratch = (ViewGroup) ScratchRelativeLayoutView.this.getChildAt(1);
+          ScratchRelativeLayoutView.this.mScratchBitmap = loadBitmapFromView(view);
+          ScratchRelativeLayoutView.this.removeViewAt(1);
           ScratchRelativeLayoutView.this.mDrawable = new BitmapDrawable(mContext.getResources(), ScratchRelativeLayoutView.this.mScratchBitmap);
           ScratchRelativeLayoutView.this.mDrawable.setTileModeXY(Shader.TileMode.REPEAT, Shader.TileMode.REPEAT);
           ScratchRelativeLayoutView.this.setEraserMode();
