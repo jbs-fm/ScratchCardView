@@ -134,6 +134,20 @@ public class ScratchRelativeLayoutView extends RelativeLayout {
     }
   }
 
+  /**
+   * To show already scratched view..
+   */
+  public void showAlreadyScratchedView() {
+    ScratchRelativeLayoutView.this.post(new Runnable() {
+      @Override
+      public void run() {
+        if (ScratchRelativeLayoutView.this.getChildCount() > 0) {
+          ScratchRelativeLayoutView.this.getChildAt(0).setVisibility(VISIBLE);
+        }
+      }
+    });
+  }
+
   private Bitmap loadBitmapFromView(View view) {
     Bitmap b = Bitmap.createBitmap(view.getMeasuredWidth(), view.getMeasuredHeight(), Bitmap.Config.ARGB_8888);
     Canvas canvas = new Canvas(b);
