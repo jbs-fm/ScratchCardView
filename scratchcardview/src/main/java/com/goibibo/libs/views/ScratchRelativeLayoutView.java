@@ -145,8 +145,9 @@ public class ScratchRelativeLayoutView extends RelativeLayout {
     }
   }
 
+
   /**
-   * To show already scratched view..
+   * @param scratchedState pls use this to show already scratched view..
    */
   public void setScratchView(@ScratchedState String scratchedState) {
     if (scratchedState.equals(ScratchedState.REVEALED)) {
