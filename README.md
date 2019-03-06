@@ -56,7 +56,7 @@ Usage
 ##### JAVA
 
 ```java
-ScratchRelativeLayoutView scratchRelativeLayoutView = findViewById(R.id.lytScratch);
+ScratchRelativeLayoutView scratchRelativeLayoutView = findViewById(R.id.scratch_card);
 scratchRelativeLayoutView.setStrokeWidth(20);
 scratchRelativeLayoutView.setScratchView(R.layout.lyt_scratch); // scratchable layout
 scratchRelativeLayoutView.setRevealListener(new ScratchRelativeLayoutView.IRevealListener() {
@@ -152,7 +152,7 @@ repositories {
 }
 
 dependencies {
-    implementation 'com.goibibo.libs:scratchcardview:0.1.5'
+    implementation 'com.goibibo.libs:scratchcardview:0.1.6'
 }
 ```
 
