@@ -28,7 +28,7 @@
       tools:context=".RelativeLayoutScratchActivity">
 
       <com.goibibo.libs.views.ScratchRelativeLayoutView
-        android:id="@+id/lytScratch"
+        android:id="@+id/scratch_card"
         android:layout_width="300dp"
         android:layout_height="300dp"
         android:layout_centerInParent="true"

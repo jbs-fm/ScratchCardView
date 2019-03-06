@@ -15,16 +15,20 @@ public class RelativeLayoutScratchActivity extends AppCompatActivity {
     LayoutInflater inflater = ((LayoutInflater) getSystemService(Context.LAYOUT_INFLATER_SERVICE));
     setContentView(R.layout.activity_rl_scratch);
 
-    ScratchRelativeLayoutView scratchRelativeLayoutView = findViewById(R.id.lytScratch);
+    ScratchRelativeLayoutView scratchRelativeLayoutView = findViewById(R.id.scratch_card);
     scratchRelativeLayoutView.setStrokeWidth(20);
 
 
     /**
      Using Inflated View
      */
-//    final RelativeLayout parent = findViewById(R.id.parent);
-//    final View scratchView = inflater.inflate(R.layout.lyt_scratch, parent, true);
-//    scratchRelativeLayoutView.setScratchView(scratchView, parent);
+    /*final View scratchView = inflater.inflate(R.layout.lyt_scratch, scratchRelativeLayoutView, true);
+    scratchRelativeLayoutView.setScratchView(scratchView, scratchRelativeLayoutView);*/
+
+    /**
+     * Opening in already revealed state
+     */
+    //scratchRelativeLayoutView.setScratchView(ScratchRelativeLayoutView.ScratchedState.REVEALED);
 
     /**
      * Using Raw View
