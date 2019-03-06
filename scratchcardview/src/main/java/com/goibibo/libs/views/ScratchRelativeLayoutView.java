@@ -14,6 +14,7 @@ import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.os.AsyncTask;
 import android.support.annotation.LayoutRes;
+import android.support.annotation.StringDef;
 import android.util.AttributeSet;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -24,6 +25,9 @@ import android.widget.RelativeLayout;
 
 import com.goibibo.libs.utils.BitmapUtils;
 import com.goibiboutils.views.R;
+
+import java.lang.annotation.Retention;
+import java.lang.annotation.RetentionPolicy;
 
 
 public class ScratchRelativeLayoutView extends RelativeLayout {
@@ -43,6 +47,11 @@ public class ScratchRelativeLayoutView extends RelativeLayout {
   private int mThreadCount = 0;
   private Context mContext;
   private int scratchLayoutResourceId = 0;
+  @StringDef({ScratchedState.REVEALED})
+  @Retention(RetentionPolicy.SOURCE)
+  public @interface ScratchedState {
+    String REVEALED = "revealed";
+  }
 
   public ScratchRelativeLayoutView(Context context) {
     super(context);
@@ -102,6 +111,9 @@ public class ScratchRelativeLayoutView extends RelativeLayout {
         ScratchRelativeLayoutView.this.mDrawable.setTileModeXY(Shader.TileMode.REPEAT, Shader.TileMode.REPEAT);
         ScratchRelativeLayoutView.this.setEraserMode();
         drawScratchView();
+        if (ScratchRelativeLayoutView.this.getChildCount() > 0) {
+          ScratchRelativeLayoutView.this.getChildAt(0).setVisibility(VISIBLE);
+        }
       }
     });
   }
@@ -112,25 +124,41 @@ public class ScratchRelativeLayoutView extends RelativeLayout {
   public void setScratchView(@LayoutRes final int layoutResource) {
     LayoutInflater inflater = (LayoutInflater) mContext.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
     if (mContext instanceof Activity) {
-      final View view = inflater.inflate(layoutResource, ScratchRelativeLayoutView.this, true);
+         final View view = inflater.inflate(layoutResource, ScratchRelativeLayoutView.this, true);
 
-      ScratchRelativeLayoutView.this.postDelayed(new Runnable() {
+         ScratchRelativeLayoutView.this.postDelayed(new Runnable() {
+           @Override
+           public void run() {
+             ScratchRelativeLayoutView.this.mScratchBitmap = loadBitmapFromView(view);
+             ScratchRelativeLayoutView.this.removeViewAt(1);
+             ScratchRelativeLayoutView.this.mDrawable = new BitmapDrawable(mContext.getResources(), ScratchRelativeLayoutView.this.mScratchBitmap);
+             ScratchRelativeLayoutView.this.mDrawable.setTileModeXY(Shader.TileMode.REPEAT, Shader.TileMode.REPEAT);
+             ScratchRelativeLayoutView.this.setEraserMode();
+             drawScratchView();
+             if (ScratchRelativeLayoutView.this.getChildCount() > 0) {
+               ScratchRelativeLayoutView.this.getChildAt(0).setVisibility(VISIBLE);
+             }
+           }
+         }, 300);
+    } else {
+      Log.e("Scratch", "Not An Activity.");
+    }
+  }
+
+
+  /**
+   * @param scratchedState pls use this to show already scratched view..
+   */
+  public void setScratchView(@ScratchedState String scratchedState) {
+    if (scratchedState.equals(ScratchedState.REVEALED)) {
+      ScratchRelativeLayoutView.this.post(new Runnable() {
         @Override
         public void run() {
-          //final ViewGroup lytScratch = (ViewGroup) ScratchRelativeLayoutView.this.getChildAt(1);
-          ScratchRelativeLayoutView.this.mScratchBitmap = loadBitmapFromView(view);
-          ScratchRelativeLayoutView.this.removeViewAt(1);
-          ScratchRelativeLayoutView.this.mDrawable = new BitmapDrawable(mContext.getResources(), ScratchRelativeLayoutView.this.mScratchBitmap);
-          ScratchRelativeLayoutView.this.mDrawable.setTileModeXY(Shader.TileMode.REPEAT, Shader.TileMode.REPEAT);
-          ScratchRelativeLayoutView.this.setEraserMode();
-          drawScratchView();
           if (ScratchRelativeLayoutView.this.getChildCount() > 0) {
             ScratchRelativeLayoutView.this.getChildAt(0).setVisibility(VISIBLE);
           }
         }
-      }, 300);
-    } else {
-      Log.e("Scratch", "Not An Activity.");
+      });
     }
   }
 
