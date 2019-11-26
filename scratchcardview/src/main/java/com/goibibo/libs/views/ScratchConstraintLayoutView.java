@@ -1,6 +1,5 @@
 package com.goibibo.libs.views;
 
-import android.app.Activity;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
@@ -125,27 +124,24 @@ public class ScratchConstraintLayoutView extends ConstraintLayout {
      * @param layoutResource layout resource of scratch view
      */
     public void setScratchView(@LayoutRes final int layoutResource) {
-        LayoutInflater inflater = (LayoutInflater) mContext.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-        if (mContext instanceof Activity) {
-            final View view = inflater.inflate(layoutResource, ScratchConstraintLayoutView.this, true);
+        LayoutInflater inflater = LayoutInflater.from(mContext);
 
-            ScratchConstraintLayoutView.this.postDelayed(new Runnable() {
-                @Override
-                public void run() {
-                    ScratchConstraintLayoutView.this.mScratchBitmap = loadBitmapFromView(view);
-                    ScratchConstraintLayoutView.this.removeViewAt(1);
-                    ScratchConstraintLayoutView.this.mDrawable = new BitmapDrawable(mContext.getResources(), ScratchConstraintLayoutView.this.mScratchBitmap);
-                    ScratchConstraintLayoutView.this.mDrawable.setTileModeXY(Shader.TileMode.REPEAT, Shader.TileMode.REPEAT);
-                    ScratchConstraintLayoutView.this.setEraserMode();
-                    drawScratchView();
-                    if (ScratchConstraintLayoutView.this.getChildCount() > 0) {
-                        ScratchConstraintLayoutView.this.getChildAt(0).setVisibility(VISIBLE);
-                    }
+        final View view = inflater.inflate(layoutResource, ScratchConstraintLayoutView.this, true);
+
+        ScratchConstraintLayoutView.this.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                ScratchConstraintLayoutView.this.mScratchBitmap = loadBitmapFromView(view);
+                ScratchConstraintLayoutView.this.removeViewAt(1);
+                ScratchConstraintLayoutView.this.mDrawable = new BitmapDrawable(mContext.getResources(), ScratchConstraintLayoutView.this.mScratchBitmap);
+                ScratchConstraintLayoutView.this.mDrawable.setTileModeXY(Shader.TileMode.REPEAT, Shader.TileMode.REPEAT);
+                ScratchConstraintLayoutView.this.setEraserMode();
+                drawScratchView();
+                if (ScratchConstraintLayoutView.this.getChildCount() > 0) {
+                    ScratchConstraintLayoutView.this.getChildAt(0).setVisibility(VISIBLE);
                 }
-            }, 300);
-        } else {
-            Log.e("Scratch", "Not An Activity.");
-        }
+            }
+        }, 300);
     }
 
     /**
@@ -284,7 +280,7 @@ public class ScratchConstraintLayoutView extends ConstraintLayout {
 
     @Override
     public boolean onTouchEvent(MotionEvent event) {
-        if (! scratchEnabled) {
+        if (!scratchEnabled) {
             return super.onTouchEvent(event);
         }
 
