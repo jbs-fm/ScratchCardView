@@ -58,6 +58,7 @@ class ScratchConstraintLayoutView : ConstraintLayout {
     }
 
     private fun init() {
+        setBackgroundColor(Color.TRANSPARENT)
         mTouchPath = Path()
         erasePaint = Paint()
         erasePaint!!.isAntiAlias = true
