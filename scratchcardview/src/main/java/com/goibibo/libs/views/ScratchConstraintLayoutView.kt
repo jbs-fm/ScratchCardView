@@ -15,7 +15,6 @@ import androidx.annotation.StringDef
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.constraintlayout.widget.ConstraintSet
 import androidx.core.view.drawToBitmap
-import androidx.databinding.BindingAdapter
 import com.goibibo.libs.utils.BitmapUtils
 
 class ScratchConstraintLayoutView : ConstraintLayout {
@@ -292,7 +291,10 @@ class ScratchConstraintLayoutView : ConstraintLayout {
 
     var scratchEnabled = false
 
-    @BindingAdapter(value = ["scratchViewLayoutFile", "makeScratchableImmediately"], requireAll = false)
+    fun setScratchView(@LayoutRes layoutResource: Int) {
+        setScratchView(layoutResource, false)
+    }
+
     fun setScratchView(@LayoutRes layoutResource: Int, makeScratchableImmediately: Boolean = false) {
         scratchLayoutResourceId = layoutResource
 
