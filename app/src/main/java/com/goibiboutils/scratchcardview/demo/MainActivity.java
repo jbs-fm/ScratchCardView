@@ -26,4 +26,8 @@ public class MainActivity extends AppCompatActivity {
   public void onRelativeLayoutDemoClick(View view) {
     startActivity(new Intent(this, RelativeLayoutScratchActivity.class));
   }
+
+  public void onConstraintLayoutDemoClick(View view) {
+    startActivity(new Intent(this, ConstraintLayoutScratchActivity.class));
+  }
 }

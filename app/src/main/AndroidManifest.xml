@@ -31,6 +31,7 @@
       </intent-filter>
     </activity>
     <activity android:name=".RelativeLayoutScratchActivity"/>
+    <activity android:name=".ConstraintLayoutScratchActivity"/>
   </application>
 
 </manifest>
