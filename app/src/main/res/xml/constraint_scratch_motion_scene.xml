@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<MotionScene xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <StateSet app:defaultState="@id/start" />
+
+    <Transition
+        android:id="@+id/move_transition"
+        app:constraintSetStart="@id/start"
+        app:constraintSetEnd="@id/move"
+        app:duration="400"
+        app:motionInterpolator="easeIn">
+
+        <OnClick
+            app:targetId="@id/simulate_scale_move"
+            app:clickAction="toggle"
+            />
+    </Transition>
+
+    <ConstraintSet android:id="@+id/start">
+
+        <Constraint android:id="@+id/scratch_card">
+
+            <Layout
+                android:layout_width="300dp"
+                android:layout_height="200dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+        </Constraint>
+
+        <Constraint android:id="@+id/simulate_scale_move">
+            <Layout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="16dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent" />
+        </Constraint>
+
+    </ConstraintSet>
+
+    <ConstraintSet
+        android:id="@+id/move">
+
+        <Constraint android:id="@+id/scratch_card">
+
+            <Layout
+                android:layout_width="200dp"
+                android:layout_height="100dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+        </Constraint>
+
+        <Constraint android:id="@+id/simulate_scale_move">
+            <Layout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="16dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent" />
+        </Constraint>
+
+    </ConstraintSet>
+
+
+</MotionScene>

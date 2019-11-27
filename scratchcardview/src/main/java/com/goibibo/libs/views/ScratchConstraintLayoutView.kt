@@ -10,13 +10,12 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.MotionEvent
 import android.view.View
-import android.view.ViewGroup
 import androidx.annotation.LayoutRes
 import androidx.annotation.StringDef
 import androidx.constraintlayout.widget.ConstraintLayout
+import androidx.constraintlayout.widget.ConstraintSet
 import androidx.core.view.drawToBitmap
 import com.goibibo.libs.utils.BitmapUtils
-import com.goibiboutils.views.R
 
 class ScratchConstraintLayoutView : ConstraintLayout {
     private var mX = 0f
@@ -32,8 +31,7 @@ class ScratchConstraintLayoutView : ConstraintLayout {
     private var mRevealListener: IRevealListener? = null
     private var mRevealPercent = 0f
     private var mThreadCount = 0
-    private val scratchLayoutResourceId = 0
-    var scratchEnabled = true
+    private var scratchLayoutResourceId = 0
 
     @StringDef("revealed")
     @kotlin.annotation.Retention(AnnotationRetention.SOURCE)
@@ -78,64 +76,6 @@ class ScratchConstraintLayoutView : ConstraintLayout {
         }
     }
 
-    /**
-     * @param view   Scratch View..
-     * @param parent Parent of the activity layout..
-     */
-    fun setScratchView(view: View, parent: ViewGroup) {
-        view.post {
-            mScratchBitmap = loadBitmapFromView(view)
-            parent.removeView(parent.getChildAt(1))
-            mDrawable = BitmapDrawable(context.resources, mScratchBitmap)
-            mDrawable!!.setTileModeXY(Shader.TileMode.REPEAT, Shader.TileMode.REPEAT)
-            setEraserMode()
-            drawScratchView()
-            if (this@ScratchConstraintLayoutView.childCount > 0) {
-                getChildAt(0).visibility = View.VISIBLE
-            }
-        }
-    }
-
-    /**
-     * @param layoutResource layout resource of scratch view
-     */
-    fun setScratchView(@LayoutRes layoutResource: Int) {
-        val view = LayoutInflater.from(context).inflate(layoutResource, this@ScratchConstraintLayoutView, true)
-        postDelayed({
-            mScratchBitmap = loadBitmapFromView(view)
-            removeViewAt(1)
-            mDrawable = BitmapDrawable(context.resources, mScratchBitmap)
-            mDrawable!!.setTileModeXY(Shader.TileMode.REPEAT, Shader.TileMode.REPEAT)
-            setEraserMode()
-            drawScratchView()
-            if (this@ScratchConstraintLayoutView.childCount > 0) {
-                getChildAt(0).visibility = View.VISIBLE
-            }
-        }, 300)
-    }
-
-    /**
-     * @param scratchedState pls use this to show already scratched view..
-     */
-    fun setScratchView(@ScratchedState scratchedState: String) {
-        if (scratchedState == ScratchedState.REVEALED) {
-            post {
-                if (this@ScratchConstraintLayoutView.childCount > 0) {
-                    getChildAt(0).visibility = View.VISIBLE
-                }
-            }
-        }
-    }
-
-    private fun loadBitmapFromView(view: View): Bitmap {
-        return view.drawToBitmap()
-    }
-
-    override fun onSizeChanged(w: Int, h: Int, oldw: Int, oldh: Int) {
-        super.onSizeChanged(w, h, oldw, oldh)
-        println("ScratchConstraintLayoutView@onSizeChanged")
-    }
-
     private fun drawScratchView() {
         if (mScratchBitmap != null) {
             mCanvas = Canvas(mScratchBitmap!!)
@@ -148,10 +88,6 @@ class ScratchConstraintLayoutView : ConstraintLayout {
                 mDrawable!!.draw(mCanvas!!)
             }
         }
-    }
-
-    override fun onDraw(canvas: Canvas) {
-        super.onDraw(canvas)
     }
 
     override fun dispatchDraw(canvas: Canvas) {
@@ -342,8 +278,104 @@ class ScratchConstraintLayoutView : ConstraintLayout {
         fun onRevealPercentChangedListener(var1: ScratchConstraintLayoutView?, var2: Float)
     }
 
+    // region:: ScratchConstraintLayoutView
+    ////////////////////////////////////////////////////////////////////////////////////////////////////
+
+    val scratchLayoutViewLoaded: Boolean
+        get() {
+            return scratchLayoutView != null
+        }
+
+    val scratchLayoutView: View?
+        get() = findViewWithTag(SCRATCH_VIEW_TAG)
+
+    var scratchEnabled = false
+
+    fun setScratchView(@LayoutRes layoutResource: Int, makeScratchableImmediately: Boolean = false) {
+        scratchLayoutResourceId = layoutResource
+
+        if (scratchLayoutViewLoaded) {
+            removeView(scratchLayoutView)
+        }
+
+        val view = LayoutInflater.from(context).inflate(layoutResource, this@ScratchConstraintLayoutView, true)
+
+        getChildAt(1).apply {
+            id = View.generateViewId()
+            tag = SCRATCH_VIEW_TAG
+        }
+
+        if (makeScratchableImmediately) {
+            scratchEnabled = true
+            postDelayed({
+                loadScratchViewAsBitmap()
+            }, 300)
+        }
+    }
+
+    @SuppressLint("ResourceType")
+    fun loadScratchViewAsBitmap() {
+        scratchLayoutView?.let { scratchView ->
+
+            mScratchBitmap = loadBitmapFromView(scratchView)
+            hideScratchViewLayout()
+            mDrawable = BitmapDrawable(context.resources, mScratchBitmap)
+            mDrawable!!.setTileModeXY(Shader.TileMode.REPEAT, Shader.TileMode.REPEAT)
+            setEraserMode()
+            drawScratchView()
+            if (this@ScratchConstraintLayoutView.childCount > 0) {
+                getChildAt(0).visibility = View.VISIBLE
+            }
+        }
+    }
+
+    fun hideScratchViewLayout() {
+        scratchLayoutView?.let {
+            ConstraintSet().apply {
+                clone(this@ScratchConstraintLayoutView)
+                setVisibility(it.id, View.GONE)
+                applyTo(this@ScratchConstraintLayoutView)
+            }
+        }
+    }
+
+    fun showScratchLayoutView() {
+        scratchLayoutView?.let {
+            ConstraintSet().apply {
+                clone(this@ScratchConstraintLayoutView)
+                setVisibility(it.id, View.VISIBLE)
+                applyTo(this@ScratchConstraintLayoutView)
+            }
+        }
+    }
+
+    fun resetScratchView() {
+        showScratchLayoutView()
+    }
+
+    /**
+     * @param scratchedState pls use this to show already scratched view..
+     */
+    fun setScratchView(@ScratchedState scratchedState: String) {
+        if (scratchedState == ScratchedState.REVEALED) {
+            post {
+                if (this@ScratchConstraintLayoutView.childCount > 0) {
+                    getChildAt(0).visibility = View.VISIBLE
+                }
+            }
+        }
+    }
+
+    private fun loadBitmapFromView(view: View): Bitmap {
+        return view.drawToBitmap()
+    }
+
+    ////////////////////////////////////////////////////////////////////////////////////////////////////
+    // endregion
+
     companion object {
         const val STROKE_WIDTH = 12.0f
         private const val TOUCH_TOLERANCE = 4.0f
+        private const val SCRATCH_VIEW_TAG = "SCRATCH_VIEW_TAG"
     }
 }
