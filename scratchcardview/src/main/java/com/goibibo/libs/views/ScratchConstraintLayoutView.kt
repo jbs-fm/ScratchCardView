@@ -346,10 +346,12 @@ class ScratchConstraintLayoutView : ConstraintLayout {
 
     fun hideScratchViewLayout() {
         scratchLayoutView?.let {
-            ConstraintSet().apply {
-                clone(this@ScratchConstraintLayoutView)
-                setVisibility(it.id, View.GONE)
-                applyTo(this@ScratchConstraintLayoutView)
+            post {
+                ConstraintSet().apply {
+                    clone(this@ScratchConstraintLayoutView)
+                    setVisibility(it.id, View.GONE)
+                    applyTo(this@ScratchConstraintLayoutView)
+                }
             }
         }
     }
