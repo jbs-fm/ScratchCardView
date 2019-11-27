@@ -311,9 +311,12 @@ class ScratchConstraintLayoutView : ConstraintLayout {
         }
 
         childScratchViewIndex?.let {
-            getChildAt(it).apply {
-                id = View.generateViewId()
-                tag = SCRATCH_VIEW_TAG
+            post {
+                getChildAt(it).apply {
+                    id = View.generateViewId()
+                    tag = SCRATCH_VIEW_TAG
+                    visibility = View.VISIBLE
+                }
             }
         }
 
