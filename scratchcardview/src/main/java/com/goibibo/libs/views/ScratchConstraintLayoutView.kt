@@ -304,9 +304,17 @@ class ScratchConstraintLayoutView : ConstraintLayout {
 
         val view = LayoutInflater.from(context).inflate(layoutResource, this@ScratchConstraintLayoutView, true)
 
-        getChildAt(1).apply {
-            id = View.generateViewId()
-            tag = SCRATCH_VIEW_TAG
+        val childScratchViewIndex: Int? = when (childCount) {
+            1 -> 0
+            2 -> 1
+            else -> null
+        }
+
+        childScratchViewIndex?.let {
+            getChildAt(it).apply {
+                id = View.generateViewId()
+                tag = SCRATCH_VIEW_TAG
+            }
         }
 
         if (makeScratchableImmediately) {
