@@ -3,59 +3,63 @@ apply plugin: 'kotlin-android-extensions'
 apply plugin: 'kotlin-android'
 
 ext {
-  bintrayRepo = 'maven'
-  bintrayName = 'ScratchCardView'
+    bintrayRepo = 'maven'
+    bintrayName = 'ScratchCardView'
 
-  publishedGroupId = 'com.goibibo.libs'
-  libraryName = 'ScratchCardView'
-  artifact = 'scratchcardview'
+    publishedGroupId = 'com.goibibo.libs'
+    libraryName = 'ScratchCardView'
+    artifact = 'scratchcardview'
 
-  libraryDescription = 'This is a pluggable library for building a scrach card view for your android app.'
+    libraryDescription = 'This is a pluggable library for building a scrach card view for your android app.'
 
-  siteUrl = 'https://github.com/goibibo/ScratchCardView'
-  gitUrl = 'https://github.com/goibibo/ScratchCardView.git'
+    siteUrl = 'https://github.com/goibibo/ScratchCardView'
+    gitUrl = 'https://github.com/goibibo/ScratchCardView.git'
 
-  libraryVersion = '0.1.7'
+    libraryVersion = '0.1.7'
 
-  developerId = 'mohitgoibibo'
-  developerName = 'Mohit Gupt'
-  developerEmail = 'mohit.gupt@go-mmt.com'
-  organization = 'goibibo'
+    developerId = 'mohitgoibibo'
+    developerName = 'Mohit Gupt'
+    developerEmail = 'mohit.gupt@go-mmt.com'
+    organization = 'goibibo'
 
-  licenseName = 'The Apache Software License, Version 2.0'
-  licenseUrl = 'http://www.apache.org/licenses/LICENSE-2.0.txt'
-  allLicenses = ["Apache-2.0"]
+    licenseName = 'The Apache Software License, Version 2.0'
+    licenseUrl = 'http://www.apache.org/licenses/LICENSE-2.0.txt'
+    allLicenses = ["Apache-2.0"]
 }
 
 android {
-  compileSdkVersion 29
-  buildToolsVersion '28.0.3'
+    compileSdkVersion 29
+    buildToolsVersion '28.0.3'
 
-  defaultConfig {
-    minSdkVersion 17
-    targetSdkVersion 29
-    versionCode 7
-    versionName "1.0"
-  }
-  buildTypes {
-    release {
-      minifyEnabled false
-      proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+    defaultConfig {
+        minSdkVersion 17
+        targetSdkVersion 29
+        versionCode 7
+        versionName "1.0"
     }
-  }
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+    }
+
+    dataBinding {
+        enabled = true
+    }
 }
 
 dependencies {
-  implementation fileTree(dir: 'libs', include: ['*.jar'])
-  testImplementation 'junit:junit:4.13-beta-3'
-  implementation 'androidx.appcompat:appcompat:1.1.0'
-  implementation 'androidx.constraintlayout:constraintlayout:1.1.3'
-  implementation "androidx.core:core-ktx:1.1.0"
-  implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
+    testImplementation 'junit:junit:4.13-beta-3'
+    implementation 'androidx.appcompat:appcompat:1.1.0'
+    implementation 'androidx.constraintlayout:constraintlayout:1.1.3'
+    implementation "androidx.core:core-ktx:1.1.0"
+    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
 }
 
 repositories {
-  mavenCentral()
+    mavenCentral()
 }
 
 //apply from: 'https://raw.githubusercontent.com/quangctkm9207/template-files/master/android/gradle/install.gradle'
