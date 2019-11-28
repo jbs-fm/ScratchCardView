@@ -200,7 +200,6 @@ class ScratchConstraintLayoutView : ConstraintLayout {
 
     @SuppressLint("StaticFieldLeak")
     private fun checkRevealed() {
-        println("checkRevealed: isRevealed? $isRevealed, mRevealListender? $mRevealListener, mScratchBitmap is null?: ${mScratchBitmap == null}")
         if (!isRevealed && mRevealListener != null && mScratchBitmap != null) {
             val bounds = layoutBounds
             val left = bounds[0]
@@ -234,7 +233,6 @@ class ScratchConstraintLayoutView : ConstraintLayout {
                     if (!isRevealed) {
                         val oldValue = mRevealPercent
                         mRevealPercent = percentRevealed
-                        println("checkRevealed@onPostExecute: percentRevealed: $percentRevealed, isRevealed?: $isRevealed, oldValue: $oldValue, percentRevealed: $percentRevealed")
                         if (oldValue != percentRevealed) {
                             mRevealListener!!.onRevealPercentChangedListener(this@ScratchConstraintLayoutView, percentRevealed)
                         }
@@ -336,7 +334,6 @@ class ScratchConstraintLayoutView : ConstraintLayout {
     @SuppressLint("ResourceType")
     fun loadScratchViewAsBitmap() {
         scratchLayoutView?.let { scratchView ->
-
             mScratchBitmap = loadBitmapFromView(scratchView)
             hideScratchViewLayout()
             mDrawable = BitmapDrawable(context.resources, mScratchBitmap)
@@ -346,6 +343,7 @@ class ScratchConstraintLayoutView : ConstraintLayout {
             if (this@ScratchConstraintLayoutView.childCount > 0) {
                 getChildAt(0).visibility = View.VISIBLE
             }
+            mRevealPercent = 0f
         }
     }
 
