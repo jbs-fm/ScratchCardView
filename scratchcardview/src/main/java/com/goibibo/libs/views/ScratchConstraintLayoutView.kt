@@ -122,7 +122,9 @@ class ScratchConstraintLayoutView : ConstraintLayout {
         bottom = top + height
         val paint = Paint()
         paint.xfermode = PorterDuffXfermode(PorterDuff.Mode.CLEAR)
-        mCanvas!!.drawRect(left.toFloat(), top.toFloat(), right.toFloat(), bottom.toFloat(), paint)
+        mCanvas?.let { canvas ->
+            canvas.drawRect(left.toFloat(), top.toFloat(), right.toFloat(), bottom.toFloat(), paint)
+        }
         checkRevealed()
         this.invalidate()
     }
