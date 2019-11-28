@@ -200,7 +200,7 @@ class ScratchConstraintLayoutView : ConstraintLayout {
 
     @SuppressLint("StaticFieldLeak")
     private fun checkRevealed() {
-        if (!isRevealed && mRevealListener != null) {
+        if (!isRevealed && mRevealListener != null && mScratchBitmap != null) {
             val bounds = layoutBounds
             val left = bounds[0]
             val top = bounds[1]
