@@ -369,6 +369,9 @@ class ScratchConstraintLayoutView : ConstraintLayout {
 
     fun resetScratchView() {
         showScratchLayoutView()
+        clear()
+        scratchEnabled = false
+        mRevealPercent = 0f
     }
 
     /**
